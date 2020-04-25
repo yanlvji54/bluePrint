@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "查看启动日志",
+  "usingComponents": {
+    "i-input": "../../static/iview/dist/input/index",
+    "i-panel": "../../static/iview/dist/panel/index",
+    "i-button": "../../static/iview/dist/button/index",
+    "i-cell":"../../static/iview/dist/cell/index"
+  }
+}
