@@ -1,9 +1,11 @@
 // 获取公用数据
 import $ from '../utils/wxRequest';
+const host = 'http://localhost:8000';
 
 const net = {
-  indexList: '/data',
-  idData: '/data/id'
+  indexList: host + '/data',
+  idData: host + '/data/id',
+  personalAdd: host + '/data/addPersonal'
 };
 
 const requestGetListData = function () {
@@ -22,6 +24,15 @@ const requestGetIdData = function (id) {
   });
 };
 
+const requestAddPerson = function (person) {
+  return $.post({
+    url: net.personalAdd,
+    data: {
+      person
+    }
+  });
+};
+
 const requsetGetPersonDetailById = function (id) {
   return $.get({
     url: 'http://zjy.jxjst.gov.cn/w/cms/ry/getRyData',
@@ -31,4 +42,4 @@ const requsetGetPersonDetailById = function (id) {
   });
 };
 
-export { requestGetListData, requestGetIdData, requsetGetPersonDetailById };
+export { requestGetListData, requestGetIdData, requsetGetPersonDetailById, requestAddPerson };

@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/Input/main",
     "pages/index/main",
+    "pages/Input/main",
     "pages/personnel/main"
   ],
   "window": {
@@ -26,18 +26,6 @@
       "pagePath": "pages/Input/main",
       "iconPath": "static/tabs/orders.png",
       "selectedIconPath": "static/tabs/orders-active.png"
-    }],
-
-    "items": [{
-      "name": "首页",
-      "pagePath": "pages/index/main",
-      "icon": "static/tabs/home.png",
-      "activeIcon": "static/tabs/home-active.png"
-    }, {
-      "name": "订单",
-      "pagePath": "pages/Input/main",
-      "icon": "static/tabs/orders.png",
-      "activeIcon": "static/tabs/orders-active.png"
     }],
     "position": "bottom"
   }

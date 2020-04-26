@@ -4,6 +4,9 @@
     "i-input": "../../static/iview/dist/input/index",
     "i-panel": "../../static/iview/dist/panel/index",
     "i-button": "../../static/iview/dist/button/index",
-    "i-cell":"../../static/iview/dist/cell/index"
+    "i-cell":"../../static/iview/dist/cell/index",
+    "i-cell-group":"../../static/iview/dist/cell-group/index",
+    "i-switch": "../../static/iview/dist/switch/index",
+    "i-toast": "../../static/iview/dist/toast"
   }
 }

@@ -13,8 +13,8 @@
       <div class="list_container" v-for="(item, index) in dataList" :key="index">
         <div class="list_item" @click="openResult(item)">
           <div class="list_header">
-            <div class="list_header_name">{{item.name}}</div>
-            <div class="list_header_book">{{item.book}}</div>
+            <div class="list_header_name">{{item.staffName}}</div>
+            <div class="list_header_book">{{item.SafetyBooks[0]}}</div>
             <div class="list_header_time" :class="[item.timeEnd < 7 ? 'colorRed' : '']">{{item.timeEnd}}天</div>
           </div>
           <div class="list_body">
@@ -55,8 +55,9 @@ export default {
 
   created () {
     requestGetListData(0).then(res => {
+      console.log(res);
       this.dataList = res.data;
-      this.dataList.map(e => { e.timeEnd = this.dataFilter(e.timeEnd); });
+      this.dataList.map(e => { e.timeEnd = this.dataFilter(e.date); });
     });
   }
 };
