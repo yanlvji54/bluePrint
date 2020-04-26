@@ -18,7 +18,7 @@
     "dev:my": "node build/dev-server.js my",
     "start:my": "npm run dev:my",
     "build:my": "node build/build.js my",
-    "dev": "node build/dev-server.js wx",
+    "dev": "node build/dev-server.js wx && eslint --fix --ext .js,.vue src",
     "start": "npm run dev",
     "build": "node build/build.js wx",
     "lint": "eslint --fix --ext .js,.vue src"

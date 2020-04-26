@@ -1,28 +1,20 @@
 {
   "data": [
     {
-      "name": "梁鹏",
-      "IdCard": "360102194102931211",
-      "book": "A",
-      "company": "江西焜颀",
-      "timeEnd": "2020-05-12",
-      "type": "ABC"
-    },
-    {
-      "name": "严律己",
-      "IdCard": "360102194102931211",
-      "book": "A",
-      "company": "江西焜颀",
-      "timeEnd": "2020-05-12",
-      "type": "ABC"
-    },
-    {
-      "name": "梁鹏2",
-      "IdCard": "360102194102931213",
-      "book": "A",
-      "company": "江西焜颀",
-      "timeEnd": "2020-05-12",
-      "type": "ABC"
+      "id": "360102199704184313",
+      "date": "2020-04-27",
+      "staffName": "严律己",
+      "compName": "",
+      "RegBooks": [
+        "二级市政"
+      ],
+      "countTitle": "",
+      "SafetyBooks": [
+        "赣建安A"
+      ],
+      "ProfBooks": [],
+      "TechBooks": [],
+      "SpecialBooks": []
     }
   ]
 }

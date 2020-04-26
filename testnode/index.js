@@ -39,7 +39,7 @@ app.post('/data/id', function(req, res){
 })
 app.post('/data/addPersonal', function(req, res) {
   if (!(req.body)) throw Error('body is not defined');
-  const person = req.body;
+  const person = req.body.person;
   const item = data;
   item.data.push(person);
   fs.writeFile('./testData.json', JSON.stringify(item), (err) => {
