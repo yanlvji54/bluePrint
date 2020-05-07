@@ -3,7 +3,7 @@
     <i-panel title="实名的可以用身份证来自动录入">
       <div class="cell">
         <div class="cell_80">
-          <i-input :value="id" type="textarea" title="身份证号" id="id" @change="handleInputChange"/>
+          <i-input :value="cardId" type="textarea" title="身份证号" id="id" @change="handleInputChange"/>
         </div>
         <div class="cell_20">
           <button class="div_button" hover-class="div_button_hover" @click="handleGetMessageById">获取信息</button>
@@ -44,7 +44,7 @@ import pick from '../../components/picker/index';
 export default {
   data () {
     return {
-      id: '',
+      cardId: '',
       date: '',
       staffName: '',
       compName: '',
