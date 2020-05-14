@@ -1,11 +1,15 @@
 // 获取公用数据
 import $ from '../utils/wxRequest';
-const host = 'https://miniprogram.blueprintlive.cn/api';
+// 线上环境
+// const host = 'https://miniprogram.blueprintlive.cn/api';
+// 线下开发环境
+const host = 'http://localhost:3000/api';
 
 const net = {
   login: host + '/login',
   personalAdd: host + '/person/add',
-  indexList: host + '/person/find'
+  indexList: host + '/person/find',
+  zjy: host + '/zjy'
 };
 
 const requestGetListData = function (user) {
@@ -32,10 +36,10 @@ const requestAddPerson = function (person) {
 };
 
 const requsetGetPersonDetailById = function (id) {
-  return $.get({
-    url: 'http://zjy.jxjst.gov.cn/w/cms/ry/getRyData',
+  return $.post({
+    url: net.zjy,
     data: {
-      cardNo: id
+      id
     }
   });
 };
