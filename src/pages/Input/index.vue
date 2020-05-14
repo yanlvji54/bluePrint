@@ -39,7 +39,7 @@
 
 <script>
 import { requsetGetPersonDetailById, requestAddPerson } from '../../api/request';
-import { $Toast } from '../../../static/iview/dist/base/index';
+// import { $Toast } from '../../../static/iview/dist/base/index';
 import pick from '../../components/picker/index';
 export default {
   data () {
@@ -155,7 +155,7 @@ export default {
     handleConfirm () {
       if (!this.id || !this.staffName) return;
       const personal = {
-        id: this.id,
+        cardId: this.id,
         date: this.date,
         staffName: this.staffName,
         compName: this.compName,
@@ -164,13 +164,16 @@ export default {
         SafetyBooks: this.SafetyBooks,
         ProfBooks: this.ProfBooks,
         TechBooks: this.TechBooks,
-        SpecialBooks: this.SpecialBooks
+        SpecialBooks: this.SpecialBooks,
+        UserId: '5ea9efa04e94f316b47066d2'
       };
       requestAddPerson(personal).then(res => {
-        $Toast({
-          content: '录入成功',
-          type: 'success'
-        });
+        console.log(res);
+        console.log(personal);
+        // $Toast({
+        //   content: '录入成功',
+        //   type: 'success'
+        // });
       });
     },
     handleUpdateBooks ({ options, tag }) {

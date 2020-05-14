@@ -1,8 +1,8 @@
 {
   "pages": [
-    "pages/login/main",
     "pages/index/main",
     "pages/Input/main",
+    "pages/login/main",
     "pages/personnel/main"
   ],
   "window": {

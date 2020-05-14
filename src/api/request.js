@@ -1,17 +1,17 @@
 // 获取公用数据
 import $ from '../utils/wxRequest';
-const host = 'http://localhost:8000';
+const host = 'https://miniprogram.blueprintlive.cn/api';
 
 const net = {
-  indexList: host + '/data',
-  idData: host + '/data/id',
-  personalAdd: host + '/data/addPersonal'
+  login: host + '/login',
+  personalAdd: host + '/person/add',
+  indexList: host + '/person/find'
 };
 
-const requestGetListData = function () {
-  return $.get({
+const requestGetListData = function (user) {
+  return $.post({
     url: net.indexList,
-    data: {}
+    data: user
   });
 };
 
@@ -27,9 +27,7 @@ const requestGetIdData = function (id) {
 const requestAddPerson = function (person) {
   return $.post({
     url: net.personalAdd,
-    data: {
-      person
-    }
+    data: person
   });
 };
 
@@ -42,4 +40,11 @@ const requsetGetPersonDetailById = function (id) {
   });
 };
 
-export { requestGetListData, requestGetIdData, requsetGetPersonDetailById, requestAddPerson };
+const requestLogin = function (person) {
+  return $.post({
+    url: net.login,
+    data: person
+  });
+};
+
+export { requestGetListData, requestGetIdData, requsetGetPersonDetailById, requestAddPerson, requestLogin };

@@ -14,11 +14,19 @@
         <div class="list_item" @click="openResult(item)">
           <div class="list_header">
             <div class="list_header_name">{{item.staffName}}</div>
-            <div class="list_header_book">{{item.SafetyBooks[0]}}</div>
             <div class="list_header_time" :class="[item.timeEnd < 7 ? 'colorRed' : '']">{{item.timeEnd}}天</div>
           </div>
           <div class="list_body">
-            所在公司：{{item.company}}
+            <div class="list_header_books">
+              <div class="list_header_book" v-for="(books, indexs) in item.ProfBooks" :key="indexs">{{books}}</div>
+              <div class="list_header_book" v-for="(books, indexs) in item.RegBooks" :key="indexs">{{books}}</div>
+              <div class="list_header_book" v-for="(books, indexs) in item.SafetyBooks" :key="indexs">{{books}}</div>
+              <div class="list_header_book" v-for="(books, indexs) in item.SpecialBooks" :key="indexs">{{books}}</div>
+              <div class="list_header_book" v-for="(books, indexs) in item.TechBooks" :key="indexs">{{books}}</div>
+            </div>
+          </div>
+          <div class="list_footer">
+            所在公司：{{item.compName}}
           </div>
         </div>
       </div>
@@ -54,7 +62,8 @@ export default {
   },
 
   created () {
-    requestGetListData(0).then(res => {
+    const user = { UserId: '5ea9efa04e94f316b47066d2' };
+    requestGetListData(user).then(res => {
       console.log(res);
       this.dataList = res.data;
       this.dataList.map(e => { e.timeEnd = this.dataFilter(e.date); });
@@ -92,6 +101,24 @@ export default {
           margin-bottom 4px
         .list_header_name
           width 50px
-        .list_header_book
           flex 1
+      .list_body
+        margin-bottom 6px
+        .list_header_books
+          width 100%
+          .list_header_book
+            display: inline-block;
+            height: 22px;
+            line-height: 22px;
+            margin-right 4px
+            padding: 0 4px;
+            border: 1px solid #e3e8ee;
+            border-radius: 3px;
+            background: #39f;
+            font-size: 12px;
+            vertical-align: middle;
+            opacity: 1;
+            overflow: hidden;
+            cursor: pointer;
+            color #fff
 </style>

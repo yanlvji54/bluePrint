@@ -44,7 +44,6 @@ export default {
   onLoad (options) {
     requestGetIdData(options.data).then(res => {
       this.personal = res;
-      console.log(this.personal);
     });
   },
   methos: {

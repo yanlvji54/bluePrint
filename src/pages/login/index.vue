@@ -10,15 +10,16 @@
           <i-input :value="phoneNumber" type="textarea" title="手机号" id="phoneNumber" @change="handleInputChange"/>
         </div>
         <div class="content_input_password">
-          <i-input :value="password" type="textarea" title="密码" id="password" @change="handleInputChange"/> 
+          <i-input :value="password" type="password" maxlength="30" title="密码" id="password" @change="handleInputChange"/> 
         </div>
       </div>
-      <div class="content_login_btn">登录</div>
+      <div class="content_login_btn" @click="loginIt">登录</div>
     </div>
   </div>
 </template>
 
 <script>
+import { requestLogin } from '../../api/request';
 export default {
   data () {
     return {
@@ -41,6 +42,13 @@ export default {
   methods: {
     handleInputChange (e) {
       this[e.mp.currentTarget.id] = e.mp.detail.detail.value;
+    },
+    loginIt () {
+      const person = {
+        phoneNumber: this.phoneNumber,
+        password: this.password
+      };
+      requestLogin(person);
     }
   }
 };
