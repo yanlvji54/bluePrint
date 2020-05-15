@@ -61,10 +61,9 @@ export default {
     }
   },
 
-  created () {
-    const user = { UserId: '5ea9efa04e94f316b47066d2' };
-    requestGetListData(user).then(res => {
-      console.log(res);
+  mounted () {
+    const UserId = this.$store.state.user.userId;
+    requestGetListData({ UserId }).then(res => {
       this.dataList = res.data;
       this.dataList.map(e => { e.timeEnd = this.dataFilter(e.date); });
     });

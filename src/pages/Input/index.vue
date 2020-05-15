@@ -39,7 +39,6 @@
 
 <script>
 import { requsetGetPersonDetailById, requestAddPerson } from '../../api/request';
-// import { $Toast } from '../../../static/iview/dist/base/index';
 import pick from '../../components/picker/index';
 export default {
   data () {
@@ -152,7 +151,7 @@ export default {
     handleInputChange (e) {
       this[e.mp.currentTarget.id] = e.mp.detail.detail.value;
     },
-    handleConfirm () {
+    async handleConfirm () {
       if (!this.id || !this.staffName) return;
       const personal = {
         cardId: this.id,
@@ -165,16 +164,11 @@ export default {
         ProfBooks: this.ProfBooks,
         TechBooks: this.TechBooks,
         SpecialBooks: this.SpecialBooks,
-        UserId: '5ea9efa04e94f316b47066d2'
+        UserId: this.$store.state.user.userId
       };
-      requestAddPerson(personal).then(res => {
-        console.log(res);
-        console.log(personal);
-        // $Toast({
-        //   content: '录入成功',
-        //   type: 'success'
-        // });
-      });
+      const addPersonres = await requestAddPerson(personal);
+      console.log(addPersonres);
+      mpvue.switchTab({url: '/pages/index/main'});
     },
     handleUpdateBooks ({ options, tag }) {
       if (this[tag].indexOf(options) > -1) return;

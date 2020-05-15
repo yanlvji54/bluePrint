@@ -20,35 +20,37 @@
 
 <script>
 import { requestLogin } from '../../api/request';
+import { wxLogin } from '../../utils/wxLogin.js';
 export default {
   data () {
     return {
-      phoneNumber: '',
-      password: ''
+      phoneNumber: '18279107929',
+      password: '19970418',
+      registerPage: false
     };
-  },
-
-  mounted () {
-    wx.login({
-      success (res) {
-        if (res.code) {
-          // 这里可以把code传给后台，后台用此获取openid及session_key
-          console.log(res.code);
-        }
-      }
-    });
   },
 
   methods: {
     handleInputChange (e) {
       this[e.mp.currentTarget.id] = e.mp.detail.detail.value;
     },
-    loginIt () {
+    async loginIt () {
+      const code = await wxLogin();
       const person = {
         phoneNumber: this.phoneNumber,
-        password: this.password
+        password: this.password,
+        code
       };
-      requestLogin(person);
+      const user = await requestLogin(person);
+      console.log(user);
+      this.$store.commit('userInsert', user.data);
+      wx.setStorage({
+        key: 'user',
+        data: user.data,
+        success () {
+          mpvue.switchTab({url: '/pages/index/main'});
+        }
+      });
     }
   }
 };
