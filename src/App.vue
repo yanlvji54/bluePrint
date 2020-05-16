@@ -1,17 +1,10 @@
 <script>
 export default {
   created () {
-    const that = this;
-    wx.getStorage({
-      key: 'user',
-      success (res) {
-        if (res.data.openid && res.data.phoneNumber && res.data.userId) return that.$store.commit('userInsert', res.data);
-        mpvue.navigateTo({url: '/pages/login/main'});
-      },
-      fail () {
-        mpvue.navigateTo({url: '/pages/login/main'});
-      }
-    });
+    const res = wx.getStorageSync('user');
+    if (!res) return mpvue.navigateTo({url: '/pages/login/main'});
+    if (res.openid && res.phoneNumber && res.userId) return this.$store.commit('userInsert', res);
+    mpvue.navigateTo({url: '/pages/login/main'});
   }
 };
 </script>

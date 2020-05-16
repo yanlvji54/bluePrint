@@ -58,15 +58,18 @@ export default {
     },
     openResult (e) {
       wx.navigateTo({url: `../personnel/main?data=${e.IdCard}`});
+    },
+    handleGetBooksList () {
+      const UserId = this.$store.state.user.userId;
+      requestGetListData({ UserId }).then(res => {
+        this.dataList = res.data;
+        this.dataList.map(e => { e.timeEnd = this.dataFilter(e.date); });
+      });
     }
   },
 
   onShow () {
-    const UserId = this.$store.state.user.userId;
-    requestGetListData({ UserId }).then(res => {
-      this.dataList = res.data;
-      this.dataList.map(e => { e.timeEnd = this.dataFilter(e.date); });
-    });
+    this.handleGetBooksList();
   }
 };
 </script>
