@@ -5,7 +5,8 @@ export default {
     wx.getStorage({
       key: 'user',
       success (res) {
-        that.$store.commit('userInsert', res.data);
+        if (res.data.openid && res.data.phoneNumber && res.data.userId) return that.$store.commit('userInsert', res.data);
+        mpvue.navigateTo({url: '/pages/login/main'});
       },
       fail () {
         mpvue.navigateTo({url: '/pages/login/main'});

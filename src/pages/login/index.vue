@@ -15,17 +15,19 @@
       </div>
       <div class="content_login_btn" @click="loginIt">登录</div>
     </div>
+    <i-toast id="toast" />
   </div>
 </template>
 
 <script>
-import { requestLogin } from '../../api/request';
+import { requestLogin, requestRegister } from '../../api/request';
 import { wxLogin } from '../../utils/wxLogin.js';
+const { $Toast } = require('../../../static/iview/dist/base/index');
 export default {
   data () {
     return {
-      phoneNumber: '18279107929',
-      password: '19970418',
+      phoneNumber: '',
+      password: '',
       registerPage: false
     };
   },
@@ -42,7 +44,19 @@ export default {
         code
       };
       const user = await requestLogin(person);
-      console.log(user);
+      // 密码错误的处理
+      if (user.code === 0) {
+        $Toast({
+          content: user.mesg,
+          type: 'error'
+        });
+        return;
+      }
+      // 用户不存在的处理，自动注册
+      if (user.code === -1) {
+        await this.registerIt();
+        return;
+      }
       this.$store.commit('userInsert', user.data);
       wx.setStorage({
         key: 'user',
@@ -51,6 +65,18 @@ export default {
           mpvue.switchTab({url: '/pages/index/main'});
         }
       });
+    },
+    async registerIt () {
+      const person = {
+        phoneNumber: this.phoneNumber,
+        password: this.password
+      };
+      const res = await requestRegister(person);
+      await $Toast({
+        content: res.data,
+        type: 'error'
+      });
+      await this.loginIt();
     }
   }
 };
@@ -102,7 +128,7 @@ page
       margin-bottom 30px
       border-radius 5px
       overflow hidden
-    .content_login_btn
+    .content_login_btn, .content_login_register
       width 80%
       color: #fff;
       height: 45px;
@@ -110,4 +136,6 @@ page
       text-align center
       background-color: #19be6b;
       border-radius 5px
+    .content_login_register
+      margin-top 20px
 </style>
