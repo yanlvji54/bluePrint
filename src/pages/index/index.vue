@@ -61,7 +61,7 @@ export default {
     }
   },
 
-  mounted () {
+  onShow () {
     const UserId = this.$store.state.user.userId;
     requestGetListData({ UserId }).then(res => {
       this.dataList = res.data;
