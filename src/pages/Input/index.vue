@@ -26,11 +26,11 @@
     </i-panel>
     <i-panel title="证件信息：只需输入相应的证件">
       <i-input :value="countTitle" type="textarea" title="职称证" id="countTitle" @change="handleInputChange"/>
-      <pick title="技工证" :books="TechBooks" tag="TechBooks" :multiArray="TechArray" @handlePassBooks="handleUpdateBooks"></pick>
-      <pick title="建造师" :books="RegBooks" tag="RegBooks" :multiArray="ReGArray" mode='multiSelector' @handlePassBooks="handleUpdateBooks"></pick>
-      <pick title="三类证" :books="SafetyBooks" tag="SafetyBooks" :multiArray="SafetyArray" @handlePassBooks="handleUpdateBooks"></pick>
-      <pick title="八大员" :books="ProfBooks" tag="ProfBooks" :multiArray="ProfArray" @handlePassBooks="handleUpdateBooks"></pick>
-      <pick title="特殊工" :books="SpecialBooks" tag="SpecialBooks" :multiArray="SpecialArray" @handlePassBooks="handleUpdateBooks"></pick>
+      <pick title="技工证" :books="TechBooks" tag="TechBooks" :multiArray="TechArray" @handlePassBooks="handleUpdateBooks" @handlePassBooksDel="handleDeleteBooks"></pick>
+      <pick title="建造师" :books="RegBooks" tag="RegBooks" :multiArray="ReGArray" mode='multiSelector' @handlePassBooks="handleUpdateBooks" @handlePassBooksDel="handleDeleteBooks"></pick>
+      <pick title="三类证" :books="SafetyBooks" tag="SafetyBooks" :multiArray="SafetyArray" @handlePassBooks="handleUpdateBooks" @handlePassBooksDel="handleDeleteBooks"></pick>
+      <pick title="八大员" :books="ProfBooks" tag="ProfBooks" :multiArray="ProfArray" @handlePassBooks="handleUpdateBooks" @handlePassBooksDel="handleDeleteBooks"></pick>
+      <pick title="特殊工" :books="SpecialBooks" tag="SpecialBooks" :multiArray="SpecialArray" @handlePassBooks="handleUpdateBooks" @handlePassBooksDel="handleDeleteBooks"></pick>
     </i-panel>
     <i-button @click="handleConfirm">确认</i-button>
     <i-toast id="toast" />
@@ -173,6 +173,10 @@ export default {
     handleUpdateBooks ({ options, tag }) {
       if (this[tag].indexOf(options) > -1) return;
       this[tag].push(options);
+    },
+    handleDeleteBooks ({ options, tag }) {
+      const index = this[tag].indexOf(options);
+      if (index > -1) this[tag].splice(index, 1);
     }
   }
 };

@@ -3,8 +3,8 @@
     <div class="pick_books" v-if="mode === 'multiSelector'">
       <div class="pick_books_cell cell">
         <div class="pick_books_cell_title">{{title}}</div>
-        <div class="pick_books_cell_tags" @click="bindDetailTags">
-          <div class="pick_books_cell_tags_items" v-for="(item, index) in books" :key="index">
+        <div class="pick_books_cell_tags">
+          <div class="pick_books_cell_tags_items" v-for="(item, index) in books" :key="index" @click="bindDetailTags(item)">
             {{item}}
           </div>
         </div>
@@ -20,8 +20,8 @@
     <div class="pick_books" v-else>
       <div class="pick_books_cell cell">
         <div class="pick_books_cell_title">{{title}}</div>
-        <div class="pick_books_cell_tags" @click="bindDetailTags">
-          <div class="pick_books_cell_tags_items" v-for="(item, index) in books" :key="index">
+        <div class="pick_books_cell_tags" >
+          <div class="pick_books_cell_tags_items" v-for="(item, index) in books" :key="index" @click="bindDetailTags(item)">
             {{item}}
           </div>
         </div>
@@ -80,7 +80,13 @@ export default {
       this.$emit('handlePassBooks', result);
     },
     bindDetailTags: function (e) {
-      console.log(e);
+      const options = e;
+      const tag = this.tag;
+      const result = {
+        options,
+        tag
+      };
+      this.$emit('handlePassBooksDel', result);
     }
   }
 };
