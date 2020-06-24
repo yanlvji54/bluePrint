@@ -78,7 +78,6 @@ export default {
       });
     },
     handleTimeChange: function (e) {
-      console.log('picker发送选择改变，携带值为', e.mp.detail.value);
       this.date = e.mp.detail.value;
     },
     bindMultiPickerChange: function (e) {

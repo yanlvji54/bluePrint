@@ -1,15 +1,18 @@
 // 获取公用数据
 import $ from '../utils/wxRequest';
 // 线上环境
-const host = 'https://miniprogram.blueprintlive.cn/api';
+// const host = 'https://miniprogram.blueprintlive.cn/api';
 // 线下开发环境
-// const host = 'http://localhost:3000/api';
+const host = 'http://localhost:3000/api';
 
 const net = {
   login: host + '/login',
   register: host + '/register',
   personalAdd: host + '/person/add',
   indexList: host + '/person/find',
+  idData: host + '/person/getbook',
+  deleteBook: host + '/person/delete',
+  updateBook: host + '/person/renewal',
   zjy: host + '/zjy'
 };
 
@@ -20,12 +23,10 @@ const requestGetListData = function (user) {
   });
 };
 
-const requestGetIdData = function (id) {
+const requestGetIdData = function (book) {
   return $.post({
     url: net.idData,
-    data: {
-      id
-    }
+    data: book
   });
 };
 
@@ -45,6 +46,13 @@ const requsetGetPersonDetailById = function (id) {
   });
 };
 
+const requestDeletePeople = function (book) {
+  return $.post({
+    url: net.deleteBook,
+    data: book
+  });
+};
+
 const requestLogin = function (person) {
   return $.post({
     url: net.login,
@@ -59,4 +67,11 @@ const requestRegister = function (person) {
   });
 };
 
-export { requestGetListData, requestGetIdData, requsetGetPersonDetailById, requestAddPerson, requestLogin, requestRegister };
+const requestRewanel = function (person) {
+  return $.post({
+    url: net.updateBook,
+    data: person
+  });
+};
+
+export { requestGetListData, requestGetIdData, requsetGetPersonDetailById, requestAddPerson, requestLogin, requestRegister, requestDeletePeople, requestRewanel };

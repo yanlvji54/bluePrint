@@ -57,7 +57,7 @@ export default {
       this.current = e;
     },
     openResult (e) {
-      wx.navigateTo({url: `../personnel/main?data=${e.IdCard}`});
+      wx.navigateTo({url: `../personnel/main?userid=${e.UserId}&&bookid=${e._id}`});
     },
     handleGetBooksList () {
       const UserId = this.$store.state.user.userId;
