@@ -1,16 +1,20 @@
 <template>
   <div class="container">
-    <div class="head">
-      <i-tabs :current="current" color="#f759ab">
-        <i-tab key="tab1" title="三类证" @click="handleChange('tab1')"></i-tab>
-        <i-tab key="tab2" title="技工证" @click="handleChange('tab2')"></i-tab>
-        <i-tab key="tab3" title="职称证" @click="handleChange('tab3')"></i-tab>
-        <i-tab key="tab4" title="建造师证" @click="handleChange('tab4')"></i-tab>
-      </i-tabs>
-    </div>
+    <scroll-view class="head" :scroll-x="true" @scroll="scroll">
+      <div class="tabbar">
+        <i-tabs :current="current" color="#f759ab" class="tabbar">
+          <i-tab key="TechBooks" title="技工证" @click="handleChange('TechBooks')"></i-tab>
+          <i-tab key="SafetyBooks" title="三类证" @click="handleChange('SafetyBooks')"></i-tab>
+          <i-tab key="TitleBooks" title="职称证" @click="handleChange('TitleBooks')"></i-tab>
+          <i-tab key="RegBooks" title="建造师" @click="handleChange('RegBooks')"></i-tab>
+          <i-tab key="SpecialBooks" title="特殊工" @click="handleChange('SpecialBooks')"></i-tab>
+          <i-tab key="ProfBooks" title="八大员" @click="handleChange('ProfBooks')"></i-tab>
+        </i-tabs>
+      </div>
+    </scroll-view>
 
     <div class="content">
-      <div class="list_container" v-for="(item, index) in dataList" :key="index">
+      <div class="list_container" v-for="(item, index) in dataList" v-show="item[current].length !== 0" :key="index">
         <div class="list_item" @click="openResult(item)">
           <div class="list_header">
             <div class="list_header_name">{{item.staffName}}</div>
@@ -18,11 +22,12 @@
           </div>
           <div class="list_body">
             <div class="list_header_books">
-              <div class="list_header_book" v-for="(books, indexs) in item.ProfBooks" :key="indexs">{{books}}</div>
-              <div class="list_header_book" v-for="(books, indexs) in item.RegBooks" :key="indexs">{{books}}</div>
-              <div class="list_header_book" v-for="(books, indexs) in item.SafetyBooks" :key="indexs">{{books}}</div>
-              <div class="list_header_book" v-for="(books, indexs) in item.SpecialBooks" :key="indexs">{{books}}</div>
               <div class="list_header_book" v-for="(books, indexs) in item.TechBooks" :key="indexs">{{books}}</div>
+              <div class="list_header_book" v-for="(books, indexs) in item.TitleBooks" :key="indexs">{{books}}</div>
+              <div class="list_header_book" v-for="(books, indexs) in item.SafetyBooks" :key="indexs">{{books}}</div>
+              <div class="list_header_book" v-for="(books, indexs) in item.RegBooks" :key="indexs">{{books}}</div>
+              <div class="list_header_book" v-for="(books, indexs) in item.SpecialBooks" :key="indexs">{{books}}</div>
+              <div class="list_header_book" v-for="(books, indexs) in item.ProfBooks" :key="indexs">{{books}}</div>
             </div>
           </div>
           <div class="list_footer">
@@ -30,6 +35,7 @@
           </div>
         </div>
       </div>
+      <i-load-more tip="暂无数据" :loading="false" v-if="dataShow"/>
     </div>
   </div>
 </template>
@@ -40,7 +46,8 @@ export default {
   data () {
     return {
       dataList: [],
-      current: 'tab1'
+      current: 'TechBooks',
+      dataShow: false
     };
   },
 
@@ -55,6 +62,7 @@ export default {
     },
     handleChange (e) {
       this.current = e;
+      this.handleChangeDataShow();
     },
     openResult (e) {
       wx.navigateTo({url: `../personnel/main?userid=${e.UserId}&&bookid=${e._id}`});
@@ -64,7 +72,11 @@ export default {
       requestGetListData({ UserId }).then(res => {
         this.dataList = res.data;
         this.dataList.map(e => { e.timeEnd = this.dataFilter(e.date); });
+        this.handleChangeDataShow();
       });
+    },
+    handleChangeDataShow () {
+      this.dataShow = this.dataList.every(item => item[this.current].length === 0);
     }
   },
 
@@ -82,6 +94,8 @@ export default {
   padding 0
   .head
     width 100%
+    .tabbar
+      width 150%
   .content
     width: 90%;
     padding 10px

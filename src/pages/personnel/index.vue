@@ -64,7 +64,6 @@ export default {
     handleGetPageData () {
       const { UserId, _id } = this.personal;
       const book = { userid: UserId, bookid: _id };
-      console.log(this.personal);
       requestGetIdData(book).then(res => {
         this.personal = res.data;
         const { ProfBooks, RegBooks, SafetyBooks, SpecialBooks, TechBooks } = res.data;
